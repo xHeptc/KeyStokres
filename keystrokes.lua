@@ -280,7 +280,7 @@ key_2.TextWrapped = true
 
 -- Scripts:
 
-local function FLYVZL_fake_script() -- keystrokes.LocalScript 
+local function WIEJGUO_fake_script() -- keystrokes.LocalScript 
 	local script = Instance.new('LocalScript', keystrokes)
 
 	local keys = {
@@ -385,92 +385,26 @@ local function FLYVZL_fake_script() -- keystrokes.LocalScript
 	end)
 	
 end
-coroutine.wrap(FLYVZL_fake_script)()
-local function VSSHTVI_fake_script() -- keystrokes.m1 
+coroutine.wrap(WIEJGUO_fake_script)()
+local function YNYIWA_fake_script() -- keystrokes.m2 
 	local script = Instance.new('LocalScript', keystrokes)
 
-	local BUFFER_SIZE = 1; -- seconds to get running average for
-	
-	local counters = table.create(BUFFER_SIZE, 0)
-	local current = 1; -- lua is 1-indexed
-	
-	local last = time(); -- init() equivallent
-	
-	-- update() equivallent
-	-- could use Stepped or Heartbeat here too but whatever
-	game:GetService("RunService").RenderStepped:Connect(function()
-		local now = time()
-	
-		while now - last >= 1 do
-			last += 1
-			current = (current % BUFFER_SIZE) + 1 -- lua is 1-indexed
-			counters[current] = 0;
-		end
+	local lCps = 0
+	local rCps = 0
+	game.Players.LocalPlayer:GetMouse().Button1Down:Connect(function()
+		lCps = lCps + 1
+		wait(1)
+		lCps = lCps - 1
 	end)
-	
-	local function OnMouseButton1Down()
-		counters[current] = counters[current] + 1;
-	end
-	
-	game:GetService("UserInputService").InputBegan:Connect(function(input, gameProccesed)
-		if input.UserInputType == Enum.UserInputType.MouseButton1 then
-			OnMouseButton1Down()
-		end
+	game.Players.LocalPlayer:GetMouse().Button2Down:Connect(function()
+		rCps = rCps + 1
+		wait(1)
+		rCps = rCps - 1
 	end)
-	local function Average()
-		local sum = 0
-		for i = 1, BUFFER_SIZE do
-			sum += counters[i];
-		end
-		return sum / BUFFER_SIZE
-	end
 	
 	while wait() do	
-		script.Parent.mouseElements.MouseButton1.key.Text = "L: "..Average().."CPS"
+		script.Parent.mouseElements.MouseButton1.key.Text = "L: "..lCps.."CPS"
+		script.Parent.mouseElements.MouseButton2.key.Text = "R: "..rCps.."CPS"
 	end
 end
-coroutine.wrap(VSSHTVI_fake_script)()
-local function UCRI_fake_script() -- keystrokes.m2 
-	local script = Instance.new('LocalScript', keystrokes)
-
-	local BUFFER_SIZE = 1; -- seconds to get running average for
-	
-	local counters = table.create(BUFFER_SIZE, 0)
-	local current = 1; -- lua is 1-indexed
-	
-	local last = time(); -- init() equivallent
-	
-	-- update() equivallent
-	-- could use Stepped or Heartbeat here too but whatever
-	game:GetService("RunService").RenderStepped:Connect(function()
-		local now = time()
-	
-		while now - last >= 1 do
-			last += 1
-			current = (current % BUFFER_SIZE) + 1 -- lua is 1-indexed
-			counters[current] = 0;
-		end
-	end)
-	
-	local function OnMouseButton1Down()
-		counters[current] = counters[current] + 1;
-	end
-	
-	game:GetService("UserInputService").InputBegan:Connect(function(input, gameProccesed)
-		if input.UserInputType == Enum.UserInputType.MouseButton2 then
-			OnMouseButton1Down()
-		end
-	end)
-	local function Average()
-		local sum = 0
-		for i = 1, BUFFER_SIZE do
-			sum += counters[i];
-		end
-		return sum / BUFFER_SIZE
-	end
-	
-	while wait() do	
-		script.Parent.mouseElements.MouseButton2.key.Text = "R: "..Average().."CPS"
-	end
-end
-coroutine.wrap(UCRI_fake_script)()
+coroutine.wrap(YNYIWA_fake_script)()
