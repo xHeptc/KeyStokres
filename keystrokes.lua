@@ -296,7 +296,7 @@ local function WIEJGUO_fake_script() -- keystrokes.LocalScript
 	local ui = game:GetService("UserInputService")
 	
 	ui.InputBegan:Connect(function(input, gameProccessed)
-		if input.UserInputType == Enum.UserInputType.Keyboard then
+		if input.UserInputType == Enum.UserInputType.Keyboard and not gameProccessed then
 			local keyCode = input.KeyCode
 			for i,v in pairs(keys) do	
 				if v["key"] == keyCode then
